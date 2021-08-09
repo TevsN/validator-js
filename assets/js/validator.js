@@ -2,11 +2,15 @@
 
 class Validator {
   constructor(from, to) {
-    (this.from = from), (this.to = to);
+    this.from = from,
+    this.to = to;
   }
   set from(newFrom) {
     if (isNaN(newFrom) || typeof newFrom !== "number") {
-      throw TypeError("from must be less than to");
+      throw new TypeError("from must be less than to");
+    }
+    if (newFrom > this.to) {
+      throw new RangeError("from must be less than from");
     }
     this._from = newFrom;
   }
@@ -17,31 +21,12 @@ class Validator {
 
   set to(newTo) {
     if (isNaN(newTo) || typeof newTo !== "number") {
-      throw TypeError("to must be less than to");
+      throw new TypeError("to must be less than to");
     }
-    this._to;
-  }
-
-  get to() {
-    return this._to;
-  }
-
-  set from(newFrom1) {
-    if (newFrom1 > this.to) {
-      throw RangeError("from must be less than from");
+    if (newTo < this._from) {
+      throw new RangeError("from must be less than from");
     }
-    this._to;
-  }
-
-  get from() {
-    return this._from;
-  }
-
-  set to(newTo1) {
-    if (newTo1 < this._fromfrom) {
-      throw RangeError("from must be less than from");
-    }
-    this._to;
+    this._to = newTo;
   }
 
   get to() {
@@ -54,9 +39,14 @@ class Validator {
 }
 
   validate(number) {
+    if (isNaN(number) || typeof newTo !== "number") {
+      throw new TypeError("to must be less than to");
+    }
     if (number < this.from || number > this.to) {
       throw new RangeError("not in range");
     }
     return number;
   }
 }
+
+  const range1 = new Validator (20,40);
